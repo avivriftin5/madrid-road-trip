@@ -136,17 +136,36 @@
 
         <div style="margin: 30px 0;">
             <h3 style="color: #2c3e50; margin-bottom: 15px; text-align: center;">🗺️ Full Route Map</h3>
-            <div style="position: relative; width: 100%; height: 450px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <iframe
-                    width="100%"
-                    height="450"
-                    style="border: 0;"
-                    loading="lazy"
-                    allowfullscreen
-                    referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=-4.4%2C40.3%2C-3.4%2C41.1&layer=mapnik&marker=40.7%2C-3.9">
-                </iframe>
-            </div>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+            <div id="map-segovia" style="width: 100%; height: 450px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <script>
+                var map = L.map('map-segovia').setView([40.7, -3.95], 9.5);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                // Add markers for each stop
+                var stops = [
+                    {lat: 40.4168, lng: -3.7038, name: 'Madrid (Start/End)'},
+                    {lat: 40.9429, lng: -4.1088, name: 'Segovia'},
+                    {lat: 40.7273, lng: -3.8672, name: 'Manzanares El Real Castle'},
+                    {lat: 40.7445, lng: -3.8772, name: 'La Pedriza'},
+                    {lat: 40.7806, lng: -4.0067, name: 'Puerto de Navacerrada'},
+                    {lat: 40.9967, lng: -3.9306, name: 'Mirador de Los Robledos'}
+                ];
+
+                stops.forEach(function(stop, index) {
+                    L.marker([stop.lat, stop.lng])
+                        .bindPopup('<b>' + (index + 1) + '. ' + stop.name + '</b>')
+                        .addTo(map);
+                });
+
+                // Draw route line
+                var routeCoords = stops.map(s => [s.lat, s.lng]);
+                routeCoords.push([40.4168, -3.7038]); // Return to Madrid
+                L.polyline(routeCoords, {color: '#3498db', weight: 3}).addTo(map);
+            </script>
             <p style="margin-top: 15px; text-align: center; font-size: 0.9em; color: #666;">
                 <a href="https://www.google.com/maps/dir/Madrid,+Spain/Segovia,+Spain/Castillo+de+Manzanares+el+Real,+Manzanares+el+Real/La+Pedriza/Puerto+de+Navacerrada/Mirador+de+Los+Robledos/Madrid,+Spain/" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">📍 Open full route with turn-by-turn directions in Google Maps →</a>
             </p>
