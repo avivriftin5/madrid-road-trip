@@ -155,8 +155,15 @@
                     {lat: 40.9967, lng: -3.9306, name: 'Mirador de Los Robledos'}
                 ];
 
+                // Create custom numbered icon
                 stops.forEach(function(stop, index) {
-                    L.marker([stop.lat, stop.lng])
+                    var icon = L.divIcon({
+                        className: 'custom-marker',
+                        html: '<div style="background-color: #3498db; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">' + (index + 1) + '</div>',
+                        iconSize: [28, 28],
+                        iconAnchor: [14, 14]
+                    });
+                    L.marker([stop.lat, stop.lng], {icon: icon})
                         .bindPopup('<b>' + (index + 1) + '. ' + stop.name + '</b>')
                         .addTo(map);
                 });
