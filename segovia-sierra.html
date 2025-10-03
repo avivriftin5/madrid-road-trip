@@ -145,14 +145,14 @@
                     attribution: '© OpenStreetMap contributors'
                 }).addTo(map);
 
-                // Add markers for each stop
+                // Add markers for each stop (optimized route order)
                 var stops = [
                     {lat: 40.4168, lng: -3.7038, name: 'Madrid (Start/End)'},
                     {lat: 40.9429, lng: -4.1088, name: 'Segovia'},
-                    {lat: 40.7273, lng: -3.8672, name: 'Manzanares El Real Castle'},
-                    {lat: 40.7445, lng: -3.8772, name: 'La Pedriza'},
+                    {lat: 40.9967, lng: -3.9306, name: 'Mirador de Los Robledos'},
                     {lat: 40.7806, lng: -4.0067, name: 'Puerto de Navacerrada'},
-                    {lat: 40.9967, lng: -3.9306, name: 'Mirador de Los Robledos'}
+                    {lat: 40.7445, lng: -3.8772, name: 'La Pedriza'},
+                    {lat: 40.7273, lng: -3.8672, name: 'Manzanares El Real Castle'}
                 ];
 
                 // Create custom numbered icon
@@ -174,7 +174,7 @@
                 L.polyline(routeCoords, {color: '#3498db', weight: 3}).addTo(map);
             </script>
             <p style="margin-top: 15px; text-align: center; font-size: 0.9em; color: #666;">
-                <a href="https://www.google.com/maps/dir/Madrid,+Spain/Segovia,+Spain/Castillo+de+Manzanares+el+Real,+Manzanares+el+Real/La+Pedriza/Puerto+de+Navacerrada/Mirador+de+Los+Robledos/Madrid,+Spain/" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">📍 Open full route with turn-by-turn directions in Google Maps →</a>
+                <a href="https://www.google.com/maps/dir/Madrid,+Spain/Segovia,+Spain/Mirador+de+Los+Robledos,+M-604/Puerto+de+Navacerrada/La+Pedriza,+Manzanares+el+Real/Castillo+de+Manzanares+el+Real,+Manzanares+el+Real/Madrid,+Spain/" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">📍 Open optimized route with turn-by-turn directions in Google Maps →</a>
             </p>
         </div>
 
@@ -274,14 +274,58 @@
         <div class="stop">
             <div class="stop-title"><span class="time">2:30 PM</span> - Drive to Sierra de Guadarrama 🚗</div>
             <ul>
-                <li>Depart Segovia heading southeast</li>
-                <li>Scenic drive through mountain roads</li>
-                <li>Drive time: ~50 minutes to Manzanares El Real</li>
+                <li>Depart Segovia heading southeast towards mountains</li>
+                <li>Scenic drive through Guadarrama National Park</li>
+                <li>Drive time: ~40 minutes to Mirador de Los Robledos</li>
             </ul>
         </div>
 
         <div class="stop">
-            <div class="stop-title"><span class="time">3:20 PM</span> - Manzanares El Real Castle 🏰</div>
+            <div class="stop-title"><span class="time">3:10 PM</span> - Mirador de Los Robledos <span class="star">⭐ BEST MOUNTAIN VIEW!</span></div>
+            <img src="images/PNSG_030_04-mirador de los robledos.jpg" alt="Panoramic view from Mirador de Los Robledos">
+            <strong>Panoramic mountain viewpoint:</strong>
+            <ul>
+                <li>Best viewpoint of El Paular valley</li>
+                <li>Mountains and forests as far as the eye can see</li>
+                <li>First mountain stop - fresh energy for photos!</li>
+                <li>Great group photos</li>
+            </ul>
+            <p><span class="duration">Duration: 25 minutes</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">3:45 PM</span> - Puerto de Navacerrada 🏔️</div>
+            <img src="images/cierre-estacion-esqui-puerto-navacerrada-1440x808.webp" alt="Puerto de Navacerrada mountain pass">
+            <strong>Mountain pass experience:</strong>
+            <ul>
+                <li>Famous mountain pass at 1,773m elevation</li>
+                <li>Coffee/snack stop at mountain café</li>
+                <li>Snow-capped peaks (weather permitting)</li>
+                <li>Spectacular mountain scenery</li>
+                <li>Drive time: ~15 minutes from Los Robledos</li>
+            </ul>
+            <div class="highlight">
+                <strong>⚠️ Important:</strong> May need snow chains in November!
+            </div>
+            <p><span class="duration">Duration: 30 minutes</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">4:25 PM</span> - La Pedriza Viewpoint 📸</div>
+            <img src="images/mirrador._Quebrantaherraduras.webp" alt="La Pedriza granite formations">
+            <strong>Unique geological wonder:</strong>
+            <ul>
+                <li>One of Europe's largest granite landscapes</li>
+                <li>Dramatic rock formations sculpted by wind and water</li>
+                <li>Part of Sierra de Guadarrama National Park</li>
+                <li>Easy accessible viewpoints near parking</li>
+                <li>Drive time: ~20 minutes from Navacerrada</li>
+            </ul>
+            <p><span class="duration">Duration: 20 minutes</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">4:55 PM</span> - Manzanares El Real Castle 🏰</div>
             <img src="images/Castillo_de_Manzanares_el_Real_wallpaper_6-9_pano_edited.jpg" alt="Manzanares Castle with mountain backdrop">
             <div class="highlight" style="background-color: #fff3cd; border: 1px solid #ffc107;">
                 <strong>⚠️ NOTE:</strong> Castle is closed to public (as of January 2025) - exterior viewing only.
@@ -292,71 +336,31 @@
                 <li>Walk around Santillana Lake with castle reflections</li>
                 <li>Church of Nuestra Señora de las Nieves nearby</li>
                 <li>Spectacular mountain backdrop</li>
+                <li>5-minute drive from La Pedriza</li>
                 <li>NO entrance fee (exterior only)</li>
             </ul>
-            <p><span class="duration">Duration: 40 minutes</span></p>
+            <p><span class="duration">Duration: 35 minutes</span></p>
         </div>
 
         <div class="stop">
-            <div class="stop-title"><span class="time">4:00 PM</span> - La Pedriza Viewpoint 📸</div>
-            <img src="images/mirrador._Quebrantaherraduras.webp" alt="La Pedriza granite formations">
-            <strong>Unique geological wonder:</strong>
+            <div class="stop-title"><span class="time">5:40 PM</span> - Return to Madrid 🌆</div>
             <ul>
-                <li>One of Europe's largest granite landscapes</li>
-                <li>Dramatic rock formations sculpted by wind and water</li>
-                <li>Part of Sierra de Guadarrama National Park</li>
-                <li>Easy accessible viewpoints near parking</li>
-                <li>5-minute drive from castle</li>
-            </ul>
-            <p><span class="duration">Duration: 20 minutes</span></p>
-        </div>
-
-        <div class="stop">
-            <div class="stop-title"><span class="time">4:30 PM</span> - Puerto de Navacerrada 🏔️</div>
-            <img src="images/cierre-estacion-esqui-puerto-navacerrada-1440x808.webp" alt="Puerto de Navacerrada mountain pass">
-            <strong>Mountain pass experience:</strong>
-            <ul>
-                <li>Famous mountain pass at 1,773m elevation</li>
-                <li>Coffee/snack stop at mountain café</li>
-                <li>Snow-capped peaks (weather permitting)</li>
-                <li>Spectacular mountain scenery</li>
-            </ul>
-            <div class="highlight">
-                <strong>⚠️ Important:</strong> May need snow chains in November!
-            </div>
-            <p><span class="duration">Duration: 30 minutes</span></p>
-        </div>
-
-        <div class="stop">
-            <div class="stop-title"><span class="time">5:15 PM</span> - Mirador de Los Robledos <span class="star">⭐ BEST MOUNTAIN VIEW!</span></div>
-            <img src="images/PNSG_030_04-mirador de los robledos.jpg" alt="Panoramic view from Mirador de Los Robledos">
-            <strong>Panoramic mountain viewpoint:</strong>
-            <ul>
-                <li>Best viewpoint of El Paular valley</li>
-                <li>Mountains and forests as far as the eye can see</li>
-                <li>Perfect sunset timing (if not too cloudy)</li>
-                <li>Great group photos</li>
-            </ul>
-            <p><span class="duration">Duration: 20 minutes</span></p>
-        </div>
-
-        <div class="stop">
-            <div class="stop-title"><span class="time">5:45 PM</span> - Return to Madrid 🌆</div>
-            <ul>
-                <li>Scenic drive back through mountain roads</li>
-                <li>Drive time: ~1 hour 15 minutes</li>
-                <li>Arrive hotel by 7:00 PM</li>
+                <li>Scenic drive back from Manzanares to Madrid</li>
+                <li>Drive time: ~50 minutes</li>
+                <li>Arrive hotel by 6:30 PM</li>
+                <li>Total driving: ~200 km (124 miles)</li>
             </ul>
         </div>
 
         <div class="gps-section">
-            <h4>📍 GPS COORDINATES FOR YOUR NAVIGATION:</h4>
+            <h4>📍 GPS COORDINATES FOR YOUR NAVIGATION (Optimized Route Order):</h4>
             <p><strong>1. Segovia Aqueduct:</strong> Plaza del Azoguejo, 40001 Segovia<br>
             <strong>2. Segovia Cathedral:</strong> Plaza Mayor, 40001 Segovia<br>
             <strong>3. Alcázar of Segovia:</strong> Plaza Reina Victoria Eugenia, s/n, 40003 Segovia<br>
-            <strong>4. Manzanares El Real Castle:</strong> Calle Cañada s/n, 28410 Manzanares El Real<br>
+            <strong>4. Mirador de Los Robledos:</strong> M-604 km 27, Rascafría<br>
             <strong>5. Puerto de Navacerrada:</strong> M-601, 28470 Cercedilla<br>
-            <strong>6. Mirador de Los Robledos:</strong> M-604 km 27, Rascafría</p>
+            <strong>6. La Pedriza:</strong> Manzanares el Real, Madrid<br>
+            <strong>7. Manzanares El Real Castle:</strong> Calle Cañada s/n, 28410 Manzanares El Real</p>
         </div>
 
         <div class="reminder-section">
