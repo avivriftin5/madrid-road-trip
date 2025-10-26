@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segovia Cultural Day Trip - November 15th (Bad Weather Alternative)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h3 {
+            color: #3498db;
+            text-align: center;
+            font-style: italic;
+        }
+        .stop {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+        .stop-title {
+            color: #2c3e50;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .stop img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stop strong {
+            white-space: nowrap;
+        }
+        .time {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .duration {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .reminder-section {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .reminder-section h3 {
+            color: #856404;
+            text-align: left;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li:before {
+            content: "✓ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .emergency {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .highlight {
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .star {
+            color: #f39c12;
+            font-size: 1.2em;
+        }
+        .gps-section {
+            background-color: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .gps-section h4 {
+            color: #0c5460;
+            margin-top: 0;
+        }
+        @media print {
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 20px; padding: 15px; background-color: #d4edda; border: 2px solid #28a745; border-radius: 8px;">
+            <strong>☀️ GOOD WEATHER PLAN:</strong> <a href="segovia-sierra.html" style="color: #006600; text-decoration: none; font-weight: bold;">View Segovia + Mountain Viewpoints Trip →</a><br>
+            <span style="font-size: 0.9em;">Switch to this plan if forecast shows clear skies and good visibility</span>
+        </div>
+
+        <h1>🏰 SEGOVIA CULTURAL DAY TRIP</h1>
+        <h2>Saturday, November 15th - Bad Weather Alternative</h2>
+        <h3>For Fog, Rain, or Poor Mountain Visibility</h3>
+
+        <div class="emergency" style="background-color: #fff3cd; border: 2px solid #ffc107;">
+            <strong>☁️ USE THIS PLAN IF:</strong><br>
+            • Forecast shows fog or low clouds in Sierra de Guadarrama<br>
+            • Rain expected (mountain roads slippery)<br>
+            • Poor visibility warnings for Puerto de Navacerrada<br>
+            • Snow/ice warnings on mountain passes<br><br>
+            <strong>✓ THIS PLAN FOCUSES ON:</strong> Indoor cultural sites, royal palaces, and safer highway driving
+        </div>
+
+        <div style="margin: 30px 0;">
+            <h3 style="color: #2c3e50; margin-bottom: 15px; text-align: center;">🗺️ Alternative Route Map</h3>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+            <div id="map-alternative" style="width: 100%; height: 450px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <script>
+                var map = L.map('map-alternative').setView([40.6, -4.0], 9.5);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                var stops = [
+                    {lat: 40.4168, lng: -3.7038, name: 'Madrid (Start/End)'},
+                    {lat: 40.9429, lng: -4.1088, name: 'Segovia'},
+                    {lat: 40.8947, lng: -4.0078, name: 'La Granja de San Ildefonso'},
+                    {lat: 40.5903, lng: -4.1473, name: 'El Escorial'}
+                ];
+
+                stops.forEach(function(stop, index) {
+                    var icon = L.divIcon({
+                        className: 'custom-marker',
+                        html: '<div style="background-color: #3498db; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">' + (index + 1) + '</div>',
+                        iconSize: [28, 28],
+                        iconAnchor: [14, 14]
+                    });
+                    L.marker([stop.lat, stop.lng], {icon: icon})
+                        .bindPopup('<b>' + (index + 1) + '. ' + stop.name + '</b>')
+                        .addTo(map);
+                });
+
+                var routeCoords = stops.map(s => [s.lat, s.lng]);
+                routeCoords.push([40.4168, -3.7038]);
+                L.polyline(routeCoords, {color: '#3498db', weight: 3}).addTo(map);
+            </script>
+            <p style="margin-top: 15px; text-align: center; font-size: 0.9em; color: #666;">
+                <a href="https://www.google.com/maps/dir/Madrid,+Spain/Segovia,+Spain/La+Granja+de+San+Ildefonso/El+Escorial/Madrid,+Spain/" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">📍 Open route with turn-by-turn directions in Google Maps →</a>
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="highlight">
+            <strong>🎯 WHY THIS ALTERNATIVE?</strong>
+            <ul>
+                <li>Indoor attractions - protected from weather</li>
+                <li>Safer driving on main highways (A-6) - no mountain roads</li>
+                <li>Two UNESCO World Heritage Sites: Segovia + El Escorial</li>
+                <li>Royal Palace at La Granja - Spain's "Versailles"</li>
+                <li>No visibility-dependent viewpoints</li>
+            </ul>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">8:30 AM</span> - Depart Hotel 🏨</div>
+            <ul>
+                <li>Walk 10 minutes from Leonardo City Center Madrid to rental location</li>
+                <li><span class="time">8:40 AM</span> - Pick up rental van</li>
+                <li>Drive north via A-6 highway (main highway, safer than mountain roads)</li>
+                <li>Drive time to Segovia: ~1 hour 15 minutes</li>
+            </ul>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">9:55 AM</span> - PARKING: IC Acueducto Oriental 🅿️</div>
+            <div class="highlight" style="background-color: #e8f4fd; border: 1px solid #3498db;">
+                <strong>📍 PARK ONCE - WALK ALL SEGOVIA STOPS</strong><br>
+                Address: <strong>Avenida Padre Claret 2, 40001 Segovia</strong><br>
+                Underground parking, 542 spaces, open 24/7<br>
+                Cost: ~€2.40/hour<br>
+                Phone: +34 921 43 16 33<br><br>
+                <strong>Walking distances from this parking:</strong><br>
+                • To Aqueduct: 2 minutes<br>
+                • To Alcázar: 20 minutes walk through Old Town<br>
+                • To Restaurant: 12-15 minutes from Alcázar
+            </div>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">10:00 AM</span> - Roman Aqueduct, Segovia 🏛️</div>
+            <img src="images/segovia_aqueduct.jpg" alt="Segovia Roman Aqueduct">
+            <strong>Start at Plaza del Azoguejo:</strong>
+            <ul>
+                <li>2,000-year-old Roman aqueduct - UNESCO World Heritage Site</li>
+                <li>166 arches, 28 meters high - built WITHOUT mortar!</li>
+                <li>Climb Postigo steps for views (covered walkways)</li>
+                <li>Visitor center with exhibits (indoor option if raining)</li>
+                <li>FREE to visit</li>
+            </ul>
+            <p><span class="duration">Duration: 30 minutes</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">10:30 AM</span> - Walk Through Old Town 🚶</div>
+            <img src="images/segovia_oldtown.jpg" alt="Segovia old town">
+            <strong>Stroll through medieval streets:</strong>
+            <ul>
+                <li>Walk Calle Cervantes and Calle Juan Bravo</li>
+                <li>Casa de los Picos - unique diamond-pointed façade</li>
+                <li>Church of San Martín - Romanesque architecture</li>
+                <li>Duck into cafés if raining!</li>
+            </ul>
+            <p><span class="duration">Duration: 30 minutes</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">11:00 AM</span> - Alcázar of Segovia <span class="star">⭐ HIGHLIGHT!</span></div>
+            <img src="images/segovia_alcazar.jpg" alt="Alcázar of Segovia">
+            <div class="highlight" style="background-color: #fff3cd; border: 1px solid #ffc107;">
+                <strong>⚠️ CRITICAL TIMING:</strong> Book tickets ONLINE for <strong>11:00 AM entry</strong>. Tower climb at <strong>12:00 PM</strong> (60 minutes after entry).
+            </div>
+            <strong>The Fairy-Tale Castle - PERFECT FOR BAD WEATHER (INDOOR!):</strong>
+            <ul>
+                <li>Inspired Disney's Cinderella Castle!</li>
+                <li>Medieval fortress & royal palace with stunning interiors</li>
+                <li><span class="time">11:00 AM:</span> Palace entry - explore throne room, armory, royal chambers</li>
+                <li><span class="time">12:00 PM:</span> Climb Torre de Juan II (152 steps) - indoor tower!</li>
+                <li>Entry: €8 (complete ticket with tower)</li>
+                <li>Booking: <strong>entradas.alcazardesegovia.com</strong></li>
+            </ul>
+            <p><span class="duration">Duration: 2 hours (finish at 1:00 PM)</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">1:15 PM</span> - Lunch at Restaurante José María 🍽️</div>
+            <img src="images/restaurante_jose_maria_cochinillo.jpg" alt="Restaurante José María">
+            <div class="highlight" style="background-color: #d4edda; border: 1px solid #27ae60;">
+                <strong>✓ RESERVATION CONFIRMED:</strong> 1:15 PM at Restaurante José María
+            </div>
+            <strong>Perfect for bad weather - cozy indoor dining:</strong>
+            <ul>
+                <li><strong>Signature dish:</strong> Cochinillo asado (roast suckling pig)</li>
+                <li>Featured in MICHELIN Guide España 2025</li>
+                <li>Traditional Castilian-style decor</li>
+                <li>Warm and dry respite from weather!</li>
+                <li>Location: C/ Cronista Lecea, 11, 40001 Segovia</li>
+                <li>Budget: €25-35 per person</li>
+            </ul>
+            <p><span class="duration">Duration: 1 hour 15 minutes</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">2:30 PM</span> - Drive to La Granja de San Ildefonso 🚗</div>
+            <ul>
+                <li>Walk back to IC Acueducto Oriental parking (12-15 min)</li>
+                <li>Retrieve car and drive to La Granja</li>
+                <li>Drive time: <strong>~15 minutes</strong> (11 km via CL-601 - easy paved road)</li>
+            </ul>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">2:50 PM</span> - Royal Palace of La Granja <span class="star">⭐ INDOOR HIGHLIGHT!</span></div>
+            <img src="images/la_granja_palace.jpg" alt="Royal Palace of La Granja de San Ildefonso - Spain's Versailles">
+            <div class="highlight" style="background-color: #e8f4fd; border: 1px solid #3498db;">
+                <strong>🅿️ PARKING:</strong> Free parking at the palace<br>
+                Large public lot in front of the Royal Palace<br>
+                Address: Plaza de España, 15, 40100 La Granja de San Ildefonso
+            </div>
+            <div class="highlight" style="background-color: #d4edda; border: 1px solid #27ae60;">
+                <strong>☔ PERFECT BAD WEATHER OPTION - MAINLY INDOORS!</strong>
+            </div>
+            <strong>Spain's "Versailles" - Royal Summer Palace:</strong>
+            <ul>
+                <li><strong>Royal Palace:</strong> Lavish 18th-century Baroque interiors (INDOOR)</li>
+                <li>Throne rooms, royal apartments, tapestry museum</li>
+                <li>Stunning chandeliers and period furniture</li>
+                <li><strong>Gardens:</strong> Can peek from covered areas if raining</li>
+                <li>Built by Spain's first Bourbon king, Philip V</li>
+                <li>Entry: €9 (palace), €5 (gardens), €13 (combined)</li>
+                <li>Open: Tue-Sun 10am-6pm (winter hours)</li>
+            </ul>
+            <p><span class="duration">Duration: 1 hour 15 minutes (palace tour)</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">4:15 PM</span> - Drive to El Escorial 🚗</div>
+            <ul>
+                <li>Drive from La Granja to El Escorial</li>
+                <li>Scenic route through Guadarrama foothills</li>
+                <li>Drive time: <strong>~50 minutes</strong> (via CL-601 and M-600 - good roads)</li>
+            </ul>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">5:10 PM</span> - Royal Monastery of El Escorial <span class="star">⭐ UNESCO SITE!</span></div>
+            <img src="images/el_escorial.jpg" alt="Royal Monastery of El Escorial - UNESCO World Heritage Site">
+            <div class="highlight" style="background-color: #e8f4fd; border: 1px solid #3498db;">
+                <strong>🅿️ PARKING:</strong> Public parking near monastery<br>
+                Several options on Calle Floridablanca and Plaza de la Constitución<br>
+                Cost: ~€1-2/hour
+            </div>
+            <div class="highlight" style="background-color: #fff3cd; border: 1px solid #ffc107;">
+                <strong>⏰ TIMING NOTE:</strong> El Escorial closes at 6:00 PM in winter. You'll have ~45 minutes inside. If tight on time, enjoy exterior architecture and town instead!
+            </div>
+            <div class="highlight" style="background-color: #d4edda; border: 1px solid #27ae60;">
+                <strong>☔ ENTIRELY INDOOR - PERFECT FOR BAD WEATHER!</strong>
+            </div>
+            <strong>UNESCO World Heritage Site - Royal Monastery & Palace:</strong>
+            <ul>
+                <li><strong>OPTION A (if time allows):</strong> Quick interior visit (~45 min)</li>
+                <li>Basilica, Royal Pantheon, library, palace rooms</li>
+                <li>Entry: €12 (last entry 5:15 PM)</li>
+                <li><strong>OPTION B (if too late):</strong> Exterior tour of massive Renaissance complex</li>
+                <li>Walk charming town streets, cafés for coffee</li>
+                <li>Photo opportunities of grand architecture</li>
+                <li>Built by King Philip II in 16th century</li>
+            </ul>
+            <p><span class="duration">Duration: 45-60 minutes</span></p>
+        </div>
+
+        <div class="stop">
+            <div class="stop-title"><span class="time">6:10 PM</span> - Return to Madrid 🌆</div>
+            <ul>
+                <li>Drive back to Madrid via A-6 highway</li>
+                <li>Drive time: <strong>~50 minutes</strong> (safer highway route)</li>
+                <li>Arrive hotel by <strong>7:00 PM</strong></li>
+                <li>Total driving: ~190 km</li>
+                <li><strong>✓ NO MOUNTAIN ROADS - SAFER IN BAD WEATHER</strong></li>
+            </ul>
+        </div>
+
+        <div class="gps-section">
+            <h4>📍 GPS COORDINATES (Bad Weather Route):</h4>
+            <p><strong>1. Van Rental:</strong> Leonardo City Center Madrid area<br>
+            <strong>2. Segovia Aqueduct:</strong> Plaza del Azoguejo, 40001 Segovia<br>
+            <strong>3. Alcázar of Segovia:</strong> Plaza Reina Victoria Eugenia, s/n, 40003 Segovia<br>
+            <strong>4. Restaurante José María:</strong> C/ Cronista Lecea, 11, 40001 Segovia<br>
+            <strong>5. La Granja Palace:</strong> Plaza de España, 15, 40100 La Granja de San Ildefonso<br>
+            <strong>6. El Escorial:</strong> Av Juan de Borbón y Battemberg, s/n, 28200 San Lorenzo de El Escorial</p>
+        </div>
+
+        <div class="reminder-section">
+            <h3>📋 IMPORTANT REMINDERS:</h3>
+
+            <h4>☔ Bad Weather Advantages:</h4>
+            <div class="highlight" style="background-color: #d4edda;">
+                <ul>
+                    <li><strong>Indoor attractions:</strong> Alcázar, La Granja Palace, El Escorial</li>
+                    <li><strong>Safer driving:</strong> Main highways only, no mountain roads</li>
+                    <li><strong>No visibility issues:</strong> Not dependent on clear views</li>
+                    <li><strong>More time flexibility:</strong> No sunset/daylight constraints</li>
+                    <li><strong>Cultural focus:</strong> 2-3 UNESCO World Heritage Sites</li>
+                </ul>
+            </div>
+
+            <h4>Pre-Trip Planning:</h4>
+            <ul>
+                <li><strong>BOOK ALCÁZAR TICKETS FOR 11:00 AM</strong> - entradas.alcazardesegovia.com</li>
+                <li><strong>Restaurant reservation confirmed:</strong> 1:15 PM at Restaurante José María</li>
+                <li>Check La Granja opening hours: +34 921 47 00 19</li>
+                <li>Check El Escorial hours: +34 918 90 59 02 (closes 6 PM winter)</li>
+                <li>No weather dependency - this plan works in any conditions!</li>
+            </ul>
+
+            <h4>What to Bring:</h4>
+            <ul>
+                <li><strong>Rain gear:</strong> Umbrella, waterproof jacket</li>
+                <li><strong>Comfortable walking shoes</strong> (will be mostly indoors)</li>
+                <li><strong>Layers:</strong> Palaces can be cool inside</li>
+                <li><strong>Camera</strong> for palace interiors (check flash restrictions)</li>
+                <li><strong>Cash & cards</strong> for entrance fees and parking</li>
+            </ul>
+
+            <h4>Driving & Parking:</h4>
+            <ul>
+                <li>Tolls on AP-61: ~€5-7 (if used)</li>
+                <li><strong>Segovia: IC Acueducto Oriental</strong> (~€2.40/hour)</li>
+                <li><strong>La Granja:</strong> FREE parking at palace</li>
+                <li><strong>El Escorial:</strong> ~€1-2/hour street parking</li>
+                <li><strong>Main highways only:</strong> A-6, CL-601, M-600 (well-maintained)</li>
+                <li>NO snow chains needed - staying below 1,200m elevation</li>
+            </ul>
+        </div>
+
+        <div class="reminder-section" style="background-color: #e8f4fd;">
+            <h3>💰 ESTIMATED BUDGET (Per Person):</h3>
+            <ul style="list-style-type: disc; padding-left: 20px;">
+                <li>Rental van: €40-150 ÷ group (depending on service)</li>
+                <li>Fuel: ~€25-30 ÷ group</li>
+                <li>Highway tolls: ~€5-7 ÷ group</li>
+                <li>Parking: €10-15 total (Segovia + El Escorial)</li>
+                <li>Alcázar of Segovia: €8</li>
+                <li>La Granja Palace: €9-13</li>
+                <li>El Escorial: €12 (or €0 if exterior only)</li>
+                <li>Lunch at Restaurante José María: €25-35</li>
+            </ul>
+            <p><strong>Total per person: ~€60-90</strong> (excluding van rental split)</p>
+        </div>
+
+        <div class="emergency">
+            <h4>📞 Emergency Contacts:</h4>
+            <ul style="list-style-type: none;">
+                <li>🏰 Alcázar info: +34 921 46 07 59</li>
+                <li>🍽️ Restaurante José María: +34 921 46 11 11</li>
+                <li>🏛️ La Granja: +34 921 47 00 19</li>
+                <li>⛪ El Escorial: +34 918 90 59 02</li>
+                <li>🚨 Emergency services: 112</li>
+                <li>🏨 Your hotel: Leonardo City Center Madrid</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #d4edda; border-radius: 8px;">
+            <strong style="font-size: 1.2em; color: #2c3e50;">Don't let bad weather ruin your day! ☔</strong><br>
+            <p style="margin-top: 10px;">This cultural itinerary offers incredible UNESCO World Heritage Sites,<br>
+            royal palaces, and indoor attractions - perfect for any weather condition!</p>
+        </div>
+    </div>
+</body>
+</html>
